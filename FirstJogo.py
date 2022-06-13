@@ -27,6 +27,7 @@ while True:
 
     #Esses proximos comandos irão desenhar algo na tela
     pygame.draw.rect(tela, (255, 0, 0), (300, 280, 40, 50))
+    pygame.draw.rect(tela, (255, 255, 0), (150, 90, 35, 45))
     pygame.draw.circle(tela, (240, 200, 190), (300, 90), 20)
     pygame.draw.line(tela, (0, 255, 0), (0, 640), (480, 0), 25)
 
