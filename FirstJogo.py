@@ -16,9 +16,9 @@ tela = pygame.display.set_mode((largura, altura))
 #aqui daremos o nome da janela do jogo
 pygame.display.set_caption('Primeiro Jogo!')
 
-#variaveis usadas para movimentação de obj
+#variaveis usadas para que a posição do meu objt seja no centro
 x = largura / 2
-y = 0
+y = altura / 2
 
 #Aqui ciramos a variavel relogio para criar um frame padrão para a movimentação do jogo
 relogio = pygame.time.Clock()
@@ -34,13 +34,19 @@ while True:
             pygame.quit()
             exit() #chamada de funcao para fechar janela
 
+        #Adicionando movimento ao objt apratir do telcado
+        if pygame.key.get_pressed()[K_a]:
+            x = x - 20
+        if pygame.key.get_pressed()[K_d]:
+            x = x + 20
+        if pygame.key.get_pressed()[K_s]:
+            y = y + 20
+        if pygame.key.get_pressed()[K_w]:
+            y = y - 20
     #Esses proximos comandos irão desenhar algo na tela
     pygame.draw.rect(tela, (255, 0, 0), (x, y, 40, 50))
 
-    if y >= altura:
-        y = 0
-    y = y + 1
-
+   
 
 
 
