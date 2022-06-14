@@ -16,20 +16,30 @@ tela = pygame.display.set_mode((largura, altura))
 #aqui daremos o nome da janela do jogo
 pygame.display.set_caption('Primeiro Jogo!')
 
+#variaveis usadas para movimentação de obj
+x = largura / 2
+y = 0
+
+#Aqui ciramos a variavel relogio para criar um frame padrão para a movimentação do jogo
+relogio = pygame.time.Clock()
+
 #Agr iremos criar o loop principal
 #A cada segundo o jogo é atualizado, por isso um loop infinito
 #todo o script do jogo dece estar nesse loop
 while True:
+    relogio.tick(144) #Aqui adicionamos o valor do framerate do jogo, no caso 144
+    tela.fill((0, 0, 0)) #"repinta a tela de preto para apagar o rastro do retalngulo"
     for event in pygame.event.get(): # cehca se há algum evento
         if event.type == QUIT:
             pygame.quit()
             exit() #chamada de funcao para fechar janela
 
     #Esses proximos comandos irão desenhar algo na tela
-    pygame.draw.rect(tela, (255, 0, 0), (300, 280, 40, 50))
-    pygame.draw.rect(tela, (255, 255, 0), (150, 90, 35, 45))
-    pygame.draw.circle(tela, (240, 200, 190), (300, 90), 20)
-    pygame.draw.line(tela, (0, 255, 0), (0, 640), (480, 0), 25)
+    pygame.draw.rect(tela, (255, 0, 0), (x, y, 40, 50))
+
+    if y >= altura:
+        y = 0
+    y = y + 1
 
 
 
