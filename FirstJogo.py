@@ -4,6 +4,9 @@ import pygame
 from pygame.locals import * #import de todas as constantes e funcoes de pygame
 # noinspection PyUnresolvedReferences
 from sys import exit #import de modulo para fechar a janela
+# noinspection PyUnresolvedReferences
+import random
+
 
 #inicializando todas as funcoes e variaveis do modulo
 pygame.init()
@@ -19,6 +22,9 @@ pygame.display.set_caption('Primeiro Jogo!')
 #variaveis usadas para que a posição do meu objt seja no centro
 x = largura / 2
 y = altura / 2
+
+x_verde = random.randint(40, 600)
+y_verde = random.randint(50, 430)
 
 #Aqui ciramos a variavel relogio para criar um frame padrão para a movimentação do jogo
 relogio = pygame.time.Clock()
@@ -44,7 +50,13 @@ while True:
         if pygame.key.get_pressed()[K_w]:
             y = y - 20
     #Esses proximos comandos irão desenhar algo na tela
-    pygame.draw.rect(tela, (255, 0, 0), (x, y, 40, 50))
+    ret_vermelho = pygame.draw.rect(tela, (255, 0, 0), (x, y, 40, 50))
+    ret_verde = pygame.draw.rect(tela, (0, 255, 0), (x_verde, y_verde, 40, 50))
+
+    if ret_vermelho.colliderect(ret_verde):
+        x_verde = random.randint(40, 600)
+        y_verde = random.randint(50, 430)
+    
 
    
 
