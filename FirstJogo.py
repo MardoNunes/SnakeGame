@@ -29,12 +29,18 @@ y_verde = random.randint(50, 430)
 #Aqui ciramos a variavel relogio para criar um frame padrão para a movimentação do jogo
 relogio = pygame.time.Clock()
 
+#Iremos criar nossa fonte para colocarmo um msg na tela e um contador de pontos 
+fonte = pygame.font.SysFont('gargi', 20, True, True)
+pontos = 0
+
 #Agr iremos criar o loop principal
 #A cada segundo o jogo é atualizado, por isso um loop infinito
 #todo o script do jogo dece estar nesse loop
 while True:
     relogio.tick(144) #Aqui adicionamos o valor do framerate do jogo, no caso 144
     tela.fill((0, 0, 0)) #"repinta a tela de preto para apagar o rastro do retalngulo"
+    mensagem = f'Pontos: {pontos}' #aqui temo a nossa msg que ira ser atualizada a cada loop
+    texto_formatado = fonte.render(mensagem, True, (255, 255, 255)) #aqui renderizamos a fonte criada acima
     for event in pygame.event.get(): # cehca se há algum evento
         if event.type == QUIT:
             pygame.quit()
@@ -56,10 +62,11 @@ while True:
     if ret_vermelho.colliderect(ret_verde):
         x_verde = random.randint(40, 600)
         y_verde = random.randint(50, 430)
-    
+        pontos += 1 
 
+   #Agr para que a msg realmente apareca na tela, iremos usar o comando seguinte
+    tela.blit(texto_formatado, (480, 35))
    
-
-
-
+   
     pygame.display.update() #atualiza a tela do jogo a cada loop
+    
