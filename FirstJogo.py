@@ -20,8 +20,8 @@ tela = pygame.display.set_mode((largura, altura))
 pygame.display.set_caption('Primeiro Jogo!')
 
 #variaveis usadas para que a posição do meu objt seja no centro
-x = largura / 2
-y = altura / 2
+x = int(largura / 2)
+y = int(altura / 2)
 
 x_verde = random.randint(40, 600)
 y_verde = random.randint(50, 430)
@@ -32,6 +32,15 @@ relogio = pygame.time.Clock()
 #Iremos criar nossa fonte para colocarmos uma msg na tela e um contador de pontos 
 fonte = pygame.font.SysFont('gargi', 20, True, True)
 pontos = 0
+
+#Iremos criar nossa musica de fundo:
+pygame.mixer.music.set_volume(0.3) #volume da musica
+musica_background = pygame.mixer.music.load('BoxCat Games - CPU Talk.mp3')
+pygame.mixer.music.play()
+
+#Iremos criar nosso som de colisão:
+som_colisao = pygame.mixer.Sound('smw_1-up.wav')
+som_colisao.set_volume(1) #volume do som de colisao
 
 #Agr iremos criar o loop principal
 #A cada segundo o jogo é atualizado, por isso um loop infinito
@@ -74,6 +83,7 @@ while True:
         x_verde = random.randint(40, 600)
         y_verde = random.randint(50, 430)
         pontos += 1 
+        som_colisao.play()
         
 
    #Agr para que a msg realmente apareca na tela, iremos usar o comando seguinte
