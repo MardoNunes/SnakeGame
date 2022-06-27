@@ -1,4 +1,5 @@
 # noinspection PyUnresolvedReferences
+from curses.ascii import alt
 import pygame
 # noinspection PyUnresolvedReferences
 from pygame.locals import * #import de todas as constantes e funcoes de pygame
@@ -48,11 +49,25 @@ som_colisao.set_volume(1) #volume do som de colisao
 
 #Criando o Corpinho da cobra
 lista_cobra = [] #essa lista guarda os valores por onde passa, incrementação dela no loop
-comprimento_inicial = 0
+comprimento_inicial = 3
 
 def aumenta_cobra(lista_cobra):
     for XeY in lista_cobra:
         pygame.draw.rect(tela, (0, 255, 0), (XeY[0], XeY[1], 20, 20))
+
+#Função de GamerOver!
+def reiniciar_jogo():
+    global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x_maca, y_maca, morreu
+    pontos = 0
+    comprimento_inicial = 3
+    x_cobra = int(largura/2) 
+    y_cobra = int(altura/2)
+    lista_cobra = []
+    lista_cabeca = []
+    x_maca = random.randint(40, 600)
+    y_maca = random.randint(50, 430)
+    morreu = False
+
 
 
 #Agr iremos criar o loop principal
@@ -117,9 +132,44 @@ while True:
     lista_cabeca.append(x_cobra)
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
-    aumenta_cobra(lista_cobra)
+    
+    #Codigo para tela de GamerOver!
+    if lista_cobra.count(lista_cabeca) > 1:
+        fonte2 = pygame.font.SysFont('arial', 20, True, True)
+        mensagem = 'Game Over! Pressione a tecla R para jogar novamente'
+        texto_formatado = fonte2.render(mensagem, True, (0,0,0))
+        ret_texto = texto_formatado.get_rect()
+
+        morreu = True
+        while morreu:
+            tela.fill((255,255,255))
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    pygame.quit()
+                    exit()
+                if event.type == KEYDOWN:
+                    if event.key == K_r:
+                        reiniciar_jogo()
+
+            ret_texto.center = (largura//2, altura//2) 
+            tela.blit(texto_formatado, ret_texto)
+            pygame.display.update()
+
+
+    #Se a cobra sair da tela:
+    if x_cobra > largura:
+        x_cobra = 0
+    if x_cobra < 0:
+        x_cobra = largura
+    if y_cobra < 0:
+        y_cobra = altura
+    if y_cobra > altura:
+        y_cobra = 0
+
+    #Complemento de cogigo para crescer a cobra
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
+    aumenta_cobra(lista_cobra)
 
    #Agr para que a msg realmente apareca na tela, iremos usar o comando seguinte
     tela.blit(texto_formatado, (480, 35))
