@@ -23,6 +23,10 @@ pygame.display.set_caption('Primeiro Jogo!')
 x_cobra = int(largura / 2)
 y_cobra = int(altura / 2)
 
+velocidade = 7
+x_controle = velocidade
+y_controle = 0
+
 x_maca = random.randint(40, 600)
 y_maca = random.randint(50, 430)
 
@@ -44,6 +48,7 @@ som_colisao.set_volume(1) #volume do som de colisao
 
 #Criando o Corpinho da cobra
 lista_cobra = [] #essa lista guarda os valores por onde passa, incrementação dela no loop
+comprimento_inicial = 0
 
 def aumenta_cobra(lista_cobra):
     for XeY in lista_cobra:
@@ -64,16 +69,34 @@ while True:
             exit() #chamada de funcao para fechar janela
 
         #Adicionando movimento ao objt apartir do teclado
-        if pygame.key.get_pressed()[K_a]:
-            x_cobra = x_cobra - 10
-        if pygame.key.get_pressed()[K_d]:
-            x_cobra = x_cobra + 10
-        if pygame.key.get_pressed()[K_s]:
-            y_cobra = y_cobra + 10
-        if pygame.key.get_pressed()[K_w]:
-            y_cobra = y_cobra - 10
-
-        #comando para fazer com que o objt n saia da tela
+        if  event.type == KEYDOWN:
+            if event.key == K_a:
+                if x_controle == velocidade:
+                    pass
+                else:
+                    x_controle = - velocidade
+                    y_controle = 0
+            if event.key == K_d:
+                if x_controle == - velocidade:
+                    pass
+                else:
+                    x_controle = velocidade
+                    y_controle = 0
+            if event.key == K_s:
+                if y_controle == - velocidade:
+                    pass
+                else:
+                    x_controle = 0
+                    y_controle = velocidade
+            if event.key == K_w:
+                if y_controle == velocidade:
+                    pass
+                else:
+                    x_controle = 0
+                    y_controle = - velocidade
+    x_cobra = x_cobra + x_controle
+    y_cobra = y_cobra + y_controle
+		
 
 
 
@@ -87,6 +110,7 @@ while True:
         y_maca = random.randint(50, 430)
         pontos += 1 
         som_colisao.play()
+        comprimento_inicial += 1
 
     #Criando a cobrinha
     lista_cabeca = []
@@ -94,6 +118,8 @@ while True:
     lista_cabeca.append(y_cobra)
     lista_cobra.append(lista_cabeca)
     aumenta_cobra(lista_cobra)
+    if len(lista_cobra) > comprimento_inicial:
+        del lista_cobra[0]
 
    #Agr para que a msg realmente apareca na tela, iremos usar o comando seguinte
     tela.blit(texto_formatado, (480, 35))
