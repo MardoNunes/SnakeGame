@@ -1,4 +1,4 @@
-# First Game
+# SnakeGame
  Meu primeiro jogo usando Python e o pygame.
  
- O jogo não está **TERMINADO**!!! Estou começando-o e o atualizando sempre que possivel!
+ O jogo está **parcialmente** terminado! Fiz essa versão, mas pretendo adicionar mais coisas!
