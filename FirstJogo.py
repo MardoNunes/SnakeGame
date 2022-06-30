@@ -24,7 +24,7 @@ pygame.display.set_caption('Primeiro Jogo!')
 x_cobra = int(largura / 2)
 y_cobra = int(altura / 2)
 
-velocidade = 7
+velocidade = float(5)
 x_controle = velocidade
 y_controle = 0
 
@@ -57,7 +57,7 @@ def aumenta_cobra(lista_cobra):
 
 #Função de GamerOver!
 def reiniciar_jogo():
-    global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x_maca, y_maca, morreu
+    global pontos, comprimento_inicial, x_cobra, y_cobra, lista_cobra, lista_cabeca, x_maca, y_maca, morreu, velocidade
     pontos = 0
     comprimento_inicial = 3
     x_cobra = int(largura/2) 
@@ -66,6 +66,7 @@ def reiniciar_jogo():
     lista_cabeca = []
     x_maca = random.randint(40, 600)
     y_maca = random.randint(50, 430)
+    velocidade = float(5)
     morreu = False
 
 
@@ -126,6 +127,7 @@ while True:
         pontos += 1 
         som_colisao.play()
         comprimento_inicial += 1
+        velocidade += 0.1
 
     #Criando a cobrinha
     lista_cabeca = []
@@ -170,6 +172,11 @@ while True:
     if len(lista_cobra) > comprimento_inicial:
         del lista_cobra[0]
     aumenta_cobra(lista_cobra)
+
+    
+        
+
+
 
    #Agr para que a msg realmente apareca na tela, iremos usar o comando seguinte
     tela.blit(texto_formatado, (480, 35))
